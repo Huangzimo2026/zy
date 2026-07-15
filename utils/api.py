@@ -19,7 +19,6 @@ def call_ai(user_message):
     try:
         response = requests.post(API_URL, headers=headers, json=data, timeout=10)
         
-        # HTTP状态码异常处理
         if response.status_code == 401:
             return "API密钥无效，请检查配置的API_KEY是否正确。"
         if response.status_code == 429:
@@ -30,7 +29,6 @@ def call_ai(user_message):
         response.raise_for_status()
         result = response.json()
 
-        # 返回格式异常处理
         if "choices" not in result or not result["choices"]:
             return "返回数据格式异常，请稍后重试。"
             
